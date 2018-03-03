@@ -62,19 +62,24 @@ run-test:
 	@run_test.sh
 
 
-## all
-all: compile-source compile-test run-test
-
 
 ## clean
 clean:
 	@clean.sh
+
+## logs
+logs:
+	@cat ${REPORT_PATH}/*
 
 
 ## build
 build:
 	@
 
+
+
+## all
+all: setup compile-source compile-test run-test logs
 
 
 

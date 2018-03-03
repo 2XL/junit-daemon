@@ -22,3 +22,6 @@ COLLECT_TESTS=$(command ls tests --hide='*.java' | sed -e 's/\..*$//' | awk '{pr
 
 
 java -cp ${BUILD_PATH}:${TEST_PATH}:${EXTERNAL_LIBS} org.junit.runner.JUnitCore $COLLECT_TESTS > "${REPORT_PATH}/out_run_test"
+
+
+# java -cp .:/usr/share/java/junit.jar org.junit.runner.JUnitCore [test class name]

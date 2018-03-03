@@ -10,4 +10,4 @@ find . -type f -name '*.class' -delete
 rm ${TEST_PATH}/*.class -rf -v
 rm ${BUILD_PATH}/*.class -rf -v
 rm ${REPORT_PATH}/* -rf -v
-rm state
+rm state -rf -v
