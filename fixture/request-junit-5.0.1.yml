@@ -1,0 +1,41 @@
+challenge:
+  framework:
+    name: 'junit'
+    version: '5.0.1'
+    group-id: org.junit.jupiter
+    artifact-id: junit-jupiter-api
+
+  initial:
+    is_correct: false
+    files:
+      - |
+
+
+
+
+  answer:
+    is_corect: true
+    files:
+      - |
+
+
+  valid_assertion: # unit test files goes here
+    files:
+      - |
+
+        %%CREATE%%tests/HelloWorldTest.java%%
+        import org.junit.jupiter.api.Test;
+
+
+        class HelloWorldTest {
+
+          @Test
+          void firstTest() {
+            System.out.println("First test")
+          }
+        }
+        %%END
+
+
+# to load this fixture run
+# inv build -f fixture/request-junit-5.0.1.yml

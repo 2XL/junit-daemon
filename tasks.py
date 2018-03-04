@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-import base64
-import json
-import os
+import base64, json, os, sys, yaml
 
 from invoke import task
 from pipeline import executor
@@ -44,9 +41,16 @@ def build(ctx, code=None, language='java', fixture=None, test='junit', case='ans
 
     data = None
 
+    # provision submission with option: -f file_path.yml
+    if fixture is not None:
+        with open(fixture, 'r') as fixture_stream:
+            challenge = yaml.load(fixture_stream)
+            code_submission = '\n'.join(challenge['challenge'][case]['files'])
+            valid_assertion = '\n'.join(challenge['challenge']['valid_assertion']['files'])
+            data = '\n'.join([code_submission, valid_assertion])
 
-
-    if code is None:
+    # provision submission from data.json
+    elif code is None:
         # load default bootstrap source for demo
         with open('data/data.json', 'r') as file_stream:
             challenge = json.load(file_stream)
@@ -54,12 +58,9 @@ def build(ctx, code=None, language='java', fixture=None, test='junit', case='ans
             valid_assertion = '\n'.join(challenge['challenge']['valid_assertion']['files'])
             data = '\n'.join([code_submission, valid_assertion])
     else:
+        # provision submission with option: -c "string with source code"
         data = code
 
-    if fixture is not None:
-        data = fixture
-
-    print data
     submission = executor.PipelineExecutor()
     submission.load_queue_from_submission(code=data)
     # submission.list_queue()

@@ -2,8 +2,8 @@
 
 [ -z "${TEST_PATH}" ] && echo "Env var 'TEST_PATH' required"  && exit 1;
 [ -z "${BUILD_PATH}" ] && echo "Env var 'BUILD_PATH' required"  && exit 1;
+[ -z "${REPORT_PATH}" ] && echo "Env var 'REPORT_PATH' required"  && exit 1;
 
-# download required jars
 find . -type f -name '*.jar' -delete
 find . -type f -name '*.class' -delete
 

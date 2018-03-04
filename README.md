@@ -59,6 +59,6 @@ x@x ~/Github/2XL/junit-daemon (master)
 └─ $ ▶
 
 ```
-
+ - [HOW_TO_CREATE_FIXTURE.md](https://github.com/2XL/junit-daemon/blob/master/fixture/README.md)
 
  - [TODO.md](https://github.com/2XL/junit-daemon/blob/master/TODO.md)

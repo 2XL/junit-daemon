@@ -12,6 +12,10 @@ export REPORT_PATH := reports
 export FIXTURE_PATH := fixture
 export DATA_PATH := data
 
+export WORKSPACE_GRADLE := ./workspace/gradle
+export WORKSPACE_MAVEN := ./workspace/maven
+export WORKSPACE_ANT := ./workspace/ant
+
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
@@ -46,6 +50,9 @@ setup:
 	@setup.sh
 
 
+setup-gradle:
+	@setup_gradle.sh
+
 #-----------------------------------------------------------------------------------------
 ## yml fixtures into json requests --> from fixture/request.yml into data/data.json
 fixture-2-json:
@@ -79,9 +86,14 @@ compile-test:
 run-test:
 	@run_test.sh
 
+
+run-gradle:
+	@run_gradle_test.sh
+
 ## clean
 clean:
 	@clean.sh
+	@invoke clean
 
 ## logs
 logs:

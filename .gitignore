@@ -6,3 +6,5 @@
 reports/*.txt
 *.java
 *.pyc
+.gradle
+workspace/*
