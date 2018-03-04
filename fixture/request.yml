@@ -4,7 +4,7 @@ challenge:
     is_correct: false
     files:
       - |
-        %%CREATE%%src/Person.java
+        %%CREATE%%src/Person.java%%
         # This is a comment and it will be skip by the pipeline
         public class Person {
           String name;
@@ -27,25 +27,25 @@ challenge:
     files:
       - |
 
-        %%CREATE%%src/Person.java
+        %%CREATE%%src/Person.java%%
         public class Person {
-            String name;
+          String name;
 
-              public Person(String personName) {
-                      name = personName;
-              }
-
-              public String greet(String yourName) {
-                      return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
-              }
+          public Person(String personName) {
+                  name = personName;
           }
+
+          public String greet(String yourName) {
+                  return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
+          }
+        }
         %%END
 
   valid_assertion: # unit test files goes here
     files:
       - |
 
-        %%CREATE%%tests/PersonTest.java
+        %%CREATE%%tests/PersonTest.java%%
         import org.junit.Test;
         import static org.junit.Assert.assertEquals;
         import org.junit.runners.JUnit4;

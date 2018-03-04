@@ -21,35 +21,45 @@ def clean(ctx):
 
 
 @task(pre=[clean], post=[])
-def build(ctx, code=None, language='java', fixture=None, test='junit'):
-    """
-
+def build(ctx, code=None, language='java', fixture=None, test='junit', case='answer'):
+    """Provision the project with the provided payload
+         # -c   answer submitted by the user        - expect it to be k/v = relative path to `project`
+         # -t   test framework                      `default: pytest` # dummy field
+         # -f   assertion_fixture, code             - expect it to be k/v = relative path to `project`, json encoded
+         # -l   java                                `default: java` # dummy field
     :param ctx:
     :param code:
     :param language:
     :param fixture:
     :param test:
+    :param case:
     :return:
     """
-    """ Provision the project with the provided payload
-         # -c   answer submitted by the user        - expect it to be k/v = relative path to `project`
-         # -t   test framework                      `default: pytest` # dummy field
-         # -f   assertion_fixture, code             - expect it to be k/v = relative path to `project`, json encoded
-         # -l   java                                `default: java` # dummy field
-    """
     # print code
+
+# if __name__ == "__main__":
+#     case = 'answer'
+#     code = None
+#     fixture = None
+
     data = None
+
+
 
     if code is None:
         # load default bootstrap source for demo
         with open('data/data.json', 'r') as file_stream:
-            data = json.load(file_stream)
+            challenge = json.load(file_stream)
+            code_submission = '\n'.join(challenge['challenge'][case]['files'])
+            valid_assertion = '\n'.join(challenge['challenge']['valid_assertion']['files'])
+            data = '\n'.join([code_submission, valid_assertion])
     else:
         data = code
 
     if fixture is not None:
-        data = data + fixture
+        data = fixture
 
+    print data
     submission = executor.PipelineExecutor()
     submission.load_queue_from_submission(code=data)
     # submission.list_queue()

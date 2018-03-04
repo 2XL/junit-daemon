@@ -60,6 +60,9 @@ build-project:
 	@invoke -l
 	@invoke build
 
+## build project
+build: build-project
+
 # ----------------------------------------------------------------------------------------
 ## compile source class
 compile-source:
@@ -76,8 +79,6 @@ compile-test:
 run-test:
 	@run_test.sh
 
-
-
 ## clean
 clean:
 	@clean.sh
@@ -89,7 +90,7 @@ logs:
 #-----------------------------------------------------------------------------------------
 
 ## all
-all: setup compile-source compile-test run-test logs
+all: build setup compile-source compile-test run-test logs
 
 
 
