@@ -21,5 +21,5 @@ fi
 # clean residual source_code
 rm src -rf
 
-./gradlew # prewarmup, pull dependencies
+./gradlew build # prewarmup, pull dependencies
 

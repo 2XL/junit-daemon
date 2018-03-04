@@ -105,5 +105,6 @@ logs:
 all: build setup compile-source compile-test run-test logs
 
 
-
+## all-gradle
+all-gradle: build setup-gradle run-gradle
 
