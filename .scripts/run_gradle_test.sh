@@ -16,8 +16,13 @@ mkdir $WORKSPACE_GRADLE/src/main/java -p
 mkdir $WORKSPACE_GRADLE/src/test/java -p
 
 # mv fixture code to dirs
-find src -name *.java -exec cp {} $WORKSPACE_GRADLE/src/main/java \;
-find tests -name *.java -exec cp {} $WORKSPACE_GRADLE/src/test/java \;
+#find src -name *.java -exec cp {} $WORKSPACE_GRADLE/src/main/java \;
+#find tests -name *.java -exec cp {} $WORKSPACE_GRADLE/src/test/java \;
+# use rsync instead of cp, for directory prefix (include extension in subdirs) # use `--prune-empty-dirs` flag to skip empty dirs
+echo "rsync"
+rsync -av --include='*.java' --include='*/' --exclude='*' src $WORKSPACE_GRADLE/src/main/java
+rsync -av --include='*.java' --include='*/' --exclude='*' tests $WORKSPACE_GRADLE/src/test/java
+
 
 cd $WORKSPACE_GRADLE && ./gradlew test
 

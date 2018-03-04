@@ -12,4 +12,4 @@
 EXTERNAL_LIBS=$(find ${LIBS_PATH} -name *.jar)
 EXTERNAL_LIBS=$(echo $EXTERNAL_LIBS | sed 's/ /:/g')
 
-find ${TEST_PATH} -name '*Test.java' -exec javac -cp ${EXTERNAL_LIBS}:${BUILD_PATH} -d ${TEST_PATH} {} + > "${REPORT_PATH}/out_compile_test.txt"
+find ${TEST_PATH} -name '*Test.java' -exec javac -cp ${EXTERNAL_LIBS}:${BUILD_PATH} -d ${TEST_PATH} {} + 2>&1 "${REPORT_PATH}/out_compile_test.txt"

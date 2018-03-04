@@ -86,7 +86,10 @@ compile-test:
 run-test:
 	@run_test.sh
 
+## run test with recompilation
+run-test-recompile: compile-source compile-test run-test logs
 
+## run gradle test
 run-gradle:
 	@run_gradle_test.sh
 
