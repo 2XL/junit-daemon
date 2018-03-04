@@ -15,7 +15,7 @@ cd $WORKSPACE_GRADLE
 # start gradle if build.gradle does not exist
 if [ ! -f build.gradle ]; then
     echo "File not found!"
-    gradle init --type java-library
+    gradle init --type java-application
 fi
 
 # clean residual source_code
