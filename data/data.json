@@ -1,0 +1,21 @@
+{
+  "challenge": {
+    "answer": {
+      "files": [
+        "\n%%CREATE%%src/Person.java\npublic class Person {\n    String name;\n\n      public Person(String personName) {\n              name = personName;\n      }\n\n      public String greet(String yourName) {\n              return String.format(\"Konbanwa!  My name is %s.  It is nice to meet you, %s!\", this.name, yourName);\n      }\n  }\n%%END\n"
+      ], 
+      "is_corect": true
+    }, 
+    "initial": {
+      "files": [
+        "%%CREATE%%src/Person.java\n# This is a comment and it will be skip by the pipeline\npublic class Person {\n  String name;\n\n  public Person(String personName) {\n          // TODO: Program Constructor\n  }\n\n  public String greet(String yourName) {\n        // TODO: Write a greeting string\n  }\n}\n%%END\n"
+      ], 
+      "is_correct": false
+    }, 
+    "valid_assertion": {
+      "files": [
+        "\n%%CREATE%%tests/PersonTest.java\nimport org.junit.Test;\nimport static org.junit.Assert.assertEquals;\nimport org.junit.runners.JUnit4;\n\n\npublic class PersonTest {\n  @Test\n  public void testGreet() {\n    Person shoki = new Person(\"Shoki, the Demon Queller\");\n    assertEquals(\"Konbanwa!  My name is Shoki, the Demon Queller.  It is nice to meet you, Sun Wukong, the Monkey King!\", shoki.greet(\"Sun Wukong, the Monkey King\"));\n  }\n}\n%%END\n"
+      ]
+    }
+  }
+}

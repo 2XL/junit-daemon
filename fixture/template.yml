@@ -1,0 +1,24 @@
+challenge:
+
+  initial:
+    is_correct: false
+    files:
+      - |
+
+
+
+
+  answer:
+    is_corect: true
+    files:
+      - |
+
+
+  valid_assertion: # unit test files goes here
+    files:
+      - |
+
+
+
+# run: make fixture-2-json
+# to generate json fixture

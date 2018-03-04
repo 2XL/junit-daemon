@@ -1,0 +1,52 @@
+challenge:
+
+  initial:
+    is_correct: false
+    files:
+      - |
+        public class Calculator {
+            public int evaluate(String expression) {
+                int sum = 5;
+                for (String summand: expression.split("\\+"))
+                    sum += Integer.valueOf(summand);
+                return sum;
+            }
+        }
+
+
+  answer:
+    is_corect: true
+    files:
+      - |
+        public class Calculator {
+            public int evaluate(String expression) {
+                int sum = 0;
+                for (String summand: expression.split("\\+"))
+                    sum += Integer.valueOf(summand);
+                return sum;
+            }
+        }
+
+
+
+  valid_assertion: # unit test files goes here
+    files:
+      - |
+        import static org.junit.Assert.assertEquals;
+        import org.junit.Test;
+
+        public class CalculatorTest {
+            @Test
+            public void evaluatesExpression() {
+                Calculator calculator = new Calculator();
+                int sum = calculator.evaluate("1+2+3");
+                assertEquals(6, sum);
+            }
+        }
+
+        // java -cp .:junit-4.XX.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore CalculatorTest
+
+
+
+# run: make fixture-2-json
+# to generate json fixture

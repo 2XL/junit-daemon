@@ -9,7 +9,8 @@ export TEST_PATH := tests
 export BUILD_PATH := out
 export SOURCE_PATH := src
 export REPORT_PATH := reports
-
+export FIXTURE_PATH := fixture
+export DATA_PATH := data
 
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)
@@ -45,6 +46,20 @@ setup:
 	@setup.sh
 
 
+#-----------------------------------------------------------------------------------------
+## yml fixtures into json requests --> from fixture/request.yml into data/data.json
+fixture-2-json:
+	@# list all fixtures
+	@# for each fixture apply
+	@fixture_to_data.sh ${FIXTURE_PATH}/request.yml ${DATA_PATH}/data.json
+
+
+# ----------------------------------------------------------------------------------------
+## build project tree from data/data.json
+build-project:
+	@invoke -l
+	@invoke build
+
 # ----------------------------------------------------------------------------------------
 ## compile source class
 compile-source:
@@ -71,12 +86,7 @@ clean:
 logs:
 	@cat ${REPORT_PATH}/*
 
-
-## build
-build:
-	@
-
-
+#-----------------------------------------------------------------------------------------
 
 ## all
 all: setup compile-source compile-test run-test logs
