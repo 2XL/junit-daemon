@@ -1,23 +1,35 @@
-import os
+import os, re, json
+from pprint import pprint
 
 
 class ReportGenerator(object):
     def __init__(self, report_location='reports', report_extension_in='txt', report_extension_out='json'):
         self.report_location = report_location
         self.report_extension_in = report_extension_in
-
+        self.report = None
         pass
 
-    def generate_json_report(self):
-        print os.listdir(self.report_location)
+    def generate_report(self):
         report_files = [pos_ for pos_ in os.listdir(self.report_location) if
                         pos_.endswith('.{}'.format(self.report_extension_in))]
 
+        json_report = []
         for report in report_files:
-            parser = 'parse_{template}'.format(template=report.split('.')[0])
+            template = report.split('.')[0]
+            parser = 'parse_{template}'.format(template=template)
             if hasattr(self, parser):
-                getattr(self, parser)()
-        pass
+                json_report.append({template: getattr(self, parser)()})
+                pass
+        self.report = json_report
+
+    def export_json_report(self):
+        if self.report is None:
+            pass
+        else:
+            with open(os.path.join(self.report_location, 'report.json'), 'w') as json_report:
+                json_report.write(json.dumps(self.report, sort_keys=True, indent=2))  # , ensure_ascii=False
+
+            pass
 
     def parse_err_compile_source(self):
         """
@@ -68,7 +80,47 @@ class ReportGenerator(object):
         }
 
         """
-        raise NotImplementedError
+        report_file = os.path.join(self.report_location, 'err_compile_source' + '.' + self.report_extension_in)
+
+        err_compile_source = []
+
+        masks = [
+            r'^(?P<source_file>.*):(?P<source_line>.*):(?P<lint_type>.*):(?P<lint_message>.*)$',
+            r'^(?P<source_code>.*)$',
+            r'^(?P<source_position>.*)$'
+        ]
+
+        with open(report_file, 'r') as f:
+            file_lines = f.readlines()
+            offset = 3
+            while len(file_lines) >= offset:  # while offset is lower than file_lines, continue
+                line = file_lines[offset - 3:offset]
+
+                match = re.match(masks[0], line[0])
+                source_file = match.group('source_file')
+                source_line = match.group('source_line')
+                lint_type = match.group('lint_type')
+                lint_message = match.group('lint_message')
+
+                match = re.match(masks[1], line[1])
+                source_code = match.group('source_code')
+
+                match = re.match(masks[2], line[2])
+                source_position = match.group('source_position')
+
+                report_line = {
+                    "source_file": source_file,
+                    "source_line": source_line,
+                    "lint_type": lint_type,
+                    "lint_message": lint_message,
+                    "source_code": source_code,
+                    "source_column": len(source_position),
+                }
+                err_compile_source.append(report_line)
+                offset = offset + 3
+
+        return err_compile_source
+
         pass
 
     def parse_err_compile_test(self):
@@ -85,7 +137,8 @@ class ReportGenerator(object):
 
         :return:
         """
-        #raise NotImplementedError
+        # raise NotImplementedError
+        return []
         pass
 
     def parse_err_run_test(self):
@@ -104,6 +157,7 @@ class ReportGenerator(object):
         """
         # raise NotImplementedError
         # no demo source provided
+        return []
         pass
 
     def parse_out_compile_source(self):
@@ -120,7 +174,8 @@ class ReportGenerator(object):
 
         :return:
         """
-        #raise NotImplementedError
+        # raise NotImplementedError
+        return []
         pass
 
     def parse_out_compile_test(self):
@@ -138,6 +193,7 @@ class ReportGenerator(object):
         :return:
         """
         # raise NotImplementedError
+        return []
         pass
 
     def parse_out_run_test(self):
@@ -168,5 +224,13 @@ class ReportGenerator(object):
             }
         }
         """
-        #raise NotImplementedError
+        # raise NotImplementedError
+        return []
         pass
+
+
+if __name__ == "__main__":
+    os.chdir('..')
+    reporter = ReportGenerator()
+    reporter.generate_report()
+    reporter.export_json_report()

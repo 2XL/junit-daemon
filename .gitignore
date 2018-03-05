@@ -4,6 +4,7 @@
 *.class
 *.jar
 reports/*.txt
+reports/*
 *.java
 *.pyc
 .gradle
