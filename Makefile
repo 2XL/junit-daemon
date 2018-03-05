@@ -98,6 +98,10 @@ clean:
 	@clean.sh
 	@invoke clean
 
+## stream logs
+logs-stream:
+	@tail reports/* -f
+
 ## logs
 logs:
 	@cat ${REPORT_PATH}/*

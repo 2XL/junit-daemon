@@ -11,4 +11,6 @@
 
 # \; compile one by one
 # +  compile with all found
-find ${SOURCE_PATH} -name '*.java' -exec javac -d ${BUILD_PATH} {} + 2>&1 "${REPORT_PATH}/out_compile_source.txt"
+find ${SOURCE_PATH} -name '*.java' -exec javac -d ${BUILD_PATH} {} + \
+    2> "${REPORT_PATH}/err_compile_source.txt" \
+    1> "${REPORT_PATH}/out_compile_source.txt"

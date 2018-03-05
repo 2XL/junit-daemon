@@ -4,6 +4,7 @@ import base64, json, os, sys, yaml
 
 from invoke import task
 from pipeline import executor
+from pipeline import reporter
 
 
 @task
@@ -15,6 +16,18 @@ def clean(ctx):
     ctx.run('rm -rf out/*')
     ctx.run('rm -rf tests/*')
     ctx.run('rm -rf reports/*')
+
+
+@task
+def report(ctx):
+    """Generate json reports from execution stdout
+
+    :param ctx:
+    :return:
+    """
+    ctx.run('rm -rf reports/*.json')
+    report = reporter.ReportGenerator()
+    print report.generate_json_report()
 
 
 @task(pre=[clean], post=[])

@@ -21,7 +21,10 @@ EXTERNAL_LIBS=$(echo $EXTERNAL_LIBS | sed 's/ /:/g')
 COLLECT_TESTS=$(command ls tests --hide='*.java' | sed -e 's/\..*$//' | awk '{print $NS}')
 
 echo "java -cp ${BUILD_PATH}:${TEST_PATH}:${EXTERNAL_LIBS} org.junit.runner.JUnitCore $COLLECT_TESTS"
-java -cp ${BUILD_PATH}:${TEST_PATH}:${EXTERNAL_LIBS} org.junit.runner.JUnitCore $COLLECT_TESTS 2>&1 "${REPORT_PATH}/out_run_test.txt"
+java -cp ${BUILD_PATH}:${TEST_PATH}:${EXTERNAL_LIBS} org.junit.runner.JUnitCore $COLLECT_TESTS \
+    2> "${REPORT_PATH}/err_run_test.txt" \
+    1> "${REPORT_PATH}/out_run_test.txt" \
+
 
 
 # java -cp .:/usr/share/java/junit.jar org.junit.runner.JUnitCore [test class name]
