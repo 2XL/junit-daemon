@@ -109,12 +109,12 @@ class ReportGenerator(object):
                 source_position = match.group('source_position')
 
                 report_line = {
-                    "source_file": source_file,
-                    "source_line": source_line,
-                    "lint_type": lint_type,
-                    "lint_message": lint_message,
-                    "source_code": source_code,
-                    "source_column": len(source_position),
+                    'source_file': source_file,
+                    'source_line': source_line,
+                    'lint_type': lint_type,
+                    'lint_message': lint_message,
+                    'source_code': source_code,
+                    'source_column': len(source_position),
                 }
                 err_compile_source.append(report_line)
                 offset = offset + 3
@@ -224,8 +224,30 @@ class ReportGenerator(object):
             }
         }
         """
-        # raise NotImplementedError
-        return []
+        report_file = os.path.join(self.report_location, 'out_run_test' + '.' + self.report_extension_in)
+
+        out_run_test = {}
+
+        mask_result = r'^(?P<test_status>.*)\ \((?P<test_summary>.*)\).*$'
+
+        with open(report_file, 'r') as f:
+            lines = f.readlines()
+            test_framework = lines[0].strip('\n')
+            test_time = lines[2].rsplit(None, 1)[-1]
+
+            match = re.match(mask_result, lines[4])
+            test_status = match.group('test_status')
+            test_summary = match.group('test_summary')
+
+            out_run_test = {
+                'test_framework': test_framework,
+                'test_time': test_time,
+                'test_status': test_status,
+                'test_summary': test_summary
+            }
+
+            pass
+        return out_run_test
         pass
 
 

@@ -27,7 +27,8 @@ def report(ctx):
     """
     ctx.run('rm -rf reports/*.json')
     report = reporter.ReportGenerator()
-    print report.generate_json_report()
+    report.generate_report()
+    report.export_json_report()
 
 
 @task(pre=[clean], post=[])
@@ -47,10 +48,10 @@ def build(ctx, code=None, language='java', fixture=None, test='junit', case='ans
     """
     # print code
 
-# if __name__ == "__main__":
-#     case = 'answer'
-#     code = None
-#     fixture = None
+    # if __name__ == "__main__":
+    #     case = 'answer'
+    #     code = None
+    #     fixture = None
 
     data = None
 
