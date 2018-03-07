@@ -1,0 +1,11 @@
+version: '3'
+services:
+  junit-daemon:
+    build:
+      context: .
+      dockerfile: docker/java.docker
+    image: ${DOCKER_IMAGE_NAME}
+    container_name: junit_daemon
+    entrypoint:
+      - 'java'
+

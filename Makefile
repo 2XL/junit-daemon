@@ -16,6 +16,8 @@ export WORKSPACE_GRADLE := ./workspace/gradle
 export WORKSPACE_MAVEN := ./workspace/maven
 export WORKSPACE_ANT := ./workspace/ant
 
+export DOCKER_IMAGE_NAME := chenglongzq/junit-daemon
+
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
@@ -43,6 +45,19 @@ help:
 		} \
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
+
+
+#
+## DockerCompose && Docker tasks
+dc-build:
+	@docker-compose build
+
+
+## get docker images size
+dc-size:
+	@docker images | grep "${DOCKER_IMAGE_NAME}"
+
+
 
 # ----------------------------------------------------------------------------------------
 ## setup, download jars, install dependencies, validate requirements
