@@ -3,8 +3,7 @@
 import base64, json, os, sys, yaml
 
 from invoke import task
-from pipeline import executor
-from pipeline import reporter
+from pipeline import executor, reporter, exporter
 
 
 @task
@@ -31,6 +30,20 @@ def report(ctx):
     report.export_json_report()
 
 
+@task
+def export(ctx):
+    """Generate fixture yml from src and tests
+
+    :param ctx:
+    :return:
+    """
+
+    # need placeholder name which should be equal to the fixture content hash
+    export = exporter.FixtureExporter()
+    export.generate_fixture()
+    export.export_yml_fixture()
+
+
 @task(pre=[clean], post=[])
 def build(ctx, code=None, language='java', fixture=None, test='junit', case='answer'):
     """Provision the project with the provided payload
@@ -46,7 +59,6 @@ def build(ctx, code=None, language='java', fixture=None, test='junit', case='ans
     :param case:
     :return:
     """
-    # print code
 
     # if __name__ == "__main__":
     #     case = 'answer'
@@ -63,10 +75,10 @@ def build(ctx, code=None, language='java', fixture=None, test='junit', case='ans
             valid_assertion = '\n'.join(challenge['challenge']['valid_assertion']['files'])
             data = '\n'.join([code_submission, valid_assertion])
 
-    # provision submission from data.json
+    # provision submission from exported_challenge.json
     elif code is None:
         # load default bootstrap source for demo
-        with open('data/data.json', 'r') as file_stream:
+        with open('data/exported_challenge.json', 'r') as file_stream:
             challenge = json.load(file_stream)
             code_submission = '\n'.join(challenge['challenge'][case]['files'])
             valid_assertion = '\n'.join(challenge['challenge']['valid_assertion']['files'])

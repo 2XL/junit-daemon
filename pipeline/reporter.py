@@ -1,5 +1,4 @@
 import os, re, json
-from pprint import pprint
 
 
 class ReportGenerator(object):

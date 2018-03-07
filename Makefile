@@ -54,15 +54,19 @@ setup-gradle:
 	@setup_gradle.sh
 
 #-----------------------------------------------------------------------------------------
-## yml fixtures into json requests --> from fixture/request.yml into data/data.json
+## yml fixtures into json requests --> from fixture/exported_challenge.yml into data/exported_challenge.json
 fixture-2-json:
 	@# list all fixtures
 	@# for each fixture apply
-	@fixture_to_data.sh ${FIXTURE_PATH}/request.yml ${DATA_PATH}/data.json
+	@fixture_to_data.sh ${FIXTURE_PATH}/exported_challenge.yml ${DATA_PATH}/exported_challenge.json
+
+## export project files into yml fixture
+project-2-fixture:
+	@invoke export
 
 
 # ----------------------------------------------------------------------------------------
-## build project tree from data/data.json
+## build project tree from data/exported_challenge.json
 build-project:
 	@invoke -l
 	@invoke build
@@ -114,4 +118,5 @@ all: build setup compile-source compile-test run-test logs
 
 ## all-gradle
 all-gradle: build setup-gradle run-gradle
+
 
