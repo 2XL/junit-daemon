@@ -57,6 +57,12 @@ dc-build:
 dc-size:
 	@docker images | grep "${DOCKER_IMAGE_NAME}"
 
+dc-up:
+	@docker-compose up
+
+## get docker runner tty terminal
+dc-bash: dc-build dc-size
+	@docker run -it --rm "${DOCKER_IMAGE_NAME}" bash
 
 
 # ----------------------------------------------------------------------------------------

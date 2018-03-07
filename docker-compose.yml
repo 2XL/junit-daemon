@@ -8,4 +8,10 @@ services:
     container_name: junit_daemon
     entrypoint:
       - 'java'
+    depends_on:
+      - mq
 
+  mq:
+    build:
+      context: .
+      dockerfile: docker/rabbitmq.docker
