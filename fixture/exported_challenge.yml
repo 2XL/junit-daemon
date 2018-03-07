@@ -1,29 +1,83 @@
 challenge:
   answer:
-    files: ["%%CREATE%%src/Person.java%%\npublic class Person {\n  String name;\n\n\
-        \  public Person(String personName) {\n          name = personName;\n  }\n\
-        \n  public String greet(String yourName) {\n          return String.format(\"\
-        Konbanwa!  My name is %s.  It is nice to meet you, %s!\", this.name, yourName);\n\
-        \  }\n}\n%%END", "%%CREATE%%src/src/Person.java%%\npackage src;\n\npublic\
-        \ class Person {\n  String name;\n\n  public Person(String personName) {\n\
-        \          name = personName;\n  }\n\n  public String greet(String yourName)\
-        \ {\n          return String.format(\"Konbanwa!  My name is %s.  It is nice\
-        \ to meet you, %s!\", this.name, yourName);\n  }\n}\n%%END", "%%CREATE%%src/src/src/Person.java%%\n\
-        package src.src;\n\npublic class Person {\n  String name;\n\n  public Person(String\
-        \ personName) {\n          name = personName;\n  }\n\n  public String greet(String\
-        \ yourName) {\n          return String.format(\"Konbanwa!  My name is %s.\
-        \  It is nice to meet you, %s!\", this.name, yourName);\n  }\n}\n%%END", "%%CREATE%%src/src/src/src/Person.java%%\n\
-        package src.src.src;\n\npublic class Person {\n  String name;\n\n  public\
-        \ Person(String personName) {\n          name = personName;\n  }\n\n  public\
-        \ String greet(String yourName) {\n          return String.format(\"Konbanwa!\
-        \  My name is %s.  It is nice to meet you, %s!\", this.name, yourName);\n\
-        \  }\n}\n%%END"]
+    files:
+    - |-
+      %%CREATE%%src/Person.java%%
+      public class Person {
+        String name;
+
+        public Person(String personName) {
+                name = personName;
+        }
+
+        public String greet(String yourName) {
+                return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
+        }
+      }
+      %%END
+    - |-
+      %%CREATE%%src/src/Person.java%%
+      package src;
+
+      public class Person {
+        String name;
+
+        public Person(String personName) {
+                name = personName;
+        }
+
+        public String greet(String yourName) {
+                return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
+        }
+      }
+      %%END
+    - |-
+      %%CREATE%%src/src/src/Person.java%%
+      package src.src;
+
+      public class Person {
+        String name;
+
+        public Person(String personName) {
+                name = personName;
+        }
+
+        public String greet(String yourName) {
+                return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
+        }
+      }
+      %%END
+    - |-
+      %%CREATE%%src/src/src/src/Person.java%%
+      package src.src.src;
+
+      public class Person {
+        String name;
+
+        public Person(String personName) {
+                name = personName;
+        }
+
+        public String greet(String yourName) {
+                return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
+        }
+      }
+      %%END
     is_correct: false
   valid_assertion:
-    files: ["%%CREATE%%tests/PersonTest.java%%\nimport org.junit.Test;\nimport static\
-        \ org.junit.Assert.assertEquals;\nimport org.junit.runners.JUnit4;\n\n\npublic\
-        \ class PersonTest {\n  @Test\n  public void testGreet() {\n    Person shoki\
-        \ = new Person(\"Shoki, the Demon Queller\");\n    assertEquals(\"Konbanwa!\
-        \  My name is Shoki, the Demon Queller.  It is nice to meet you, Sun Wukong,\
-        \ the Monkey King!\", shoki.greet(\"Sun Wukong, the Monkey King\"));\n  }\n\
-        }\n%%END"]
+    files:
+    - |-
+      %%CREATE%%tests/PersonTest.java%%
+      import org.junit.Test;
+      import static org.junit.Assert.assertEquals;
+      import org.junit.runners.JUnit4;
+
+
+      public class PersonTest {
+        @Test
+        public void testGreet() {
+          Person shoki = new Person("Shoki, the Demon Queller");
+          assertEquals("Konbanwa!  My name is Shoki, the Demon Queller.  It is nice to meet you, Sun Wukong, the Monkey King!", shoki.greet("Sun Wukong, the Monkey King"));
+        }
+      }
+      %%END

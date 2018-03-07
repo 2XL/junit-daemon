@@ -1,6 +1,15 @@
 import os, yaml
 
 
+def str_presenter(dumper, data):
+    if len(data.splitlines()) > 1:  # check for multiline string
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+
+yaml.add_representer(str, str_presenter)
+
+
 class FixtureExporter(object):
     def __init__(self, source_home='src', test_home='tests', fixture_home='fixture', is_correct=False):
         self.source_home = source_home
