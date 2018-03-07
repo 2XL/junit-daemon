@@ -25,23 +25,34 @@ def report(ctx):
     :return:
     """
     ctx.run('rm -rf reports/*.json')
-    report = reporter.ReportGenerator()
-    report.generate_report()
-    report.export_json_report()
+    report_generator = reporter.ReportGenerator()
+    report_generator.generate_report()
+    report_generator.export_json_report()
 
 
 @task
-def export(ctx):
+def export(ctx, source_home='src', test_home='tests', fixture_home='fixture', fixture_name='exported_challenge.yml', is_correct=False):
     """Generate fixture yml from src and tests
 
     :param ctx:
+    :param source_home: (default:'src')
+    :param test_home: (default:'tests')
+    :param fixture_home: (default:'fixture')
+    :param fixture_name: (default:'exported_challenge.yml')
+    :param is_correct: (default:False)
     :return:
-    """
 
+    """
     # need placeholder name which should be equal to the fixture content hash
-    export = exporter.FixtureExporter()
-    export.generate_fixture()
-    export.export_yml_fixture()
+    fixture_exporter = exporter.FixtureExporter(
+        source_home=source_home,
+        test_home=test_home,
+        fixture_home=fixture_home,
+        is_correct=is_correct,
+        fixture_name=fixture_name)
+
+    fixture_exporter.generate_fixture()
+    fixture_exporter.export_yml_fixture()
 
 
 @task(pre=[clean], post=[])

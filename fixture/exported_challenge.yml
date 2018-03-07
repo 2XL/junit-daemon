@@ -1,5 +1,5 @@
 challenge:
-  answer:
+  initial:
     files:
     - |-
       %%CREATE%%src/Person.java%%
@@ -15,7 +15,7 @@ challenge:
         }
       }
       %%END
-    is_correct: false
+    is_correct: true
   valid_assertion:
     files:
     - |-

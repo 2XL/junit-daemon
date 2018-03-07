@@ -11,10 +11,11 @@ yaml.add_representer(str, str_presenter)
 
 
 class FixtureExporter(object):
-    def __init__(self, source_home='src', test_home='tests', fixture_home='fixture', is_correct=False):
+    def __init__(self, source_home='src', test_home='tests', fixture_home='fixture', is_correct=False, fixture_name='exported_challenge.yml'):
         self.source_home = source_home
         self.test_home = test_home
         self.fixture_home = fixture_home
+        self.fixture_name = fixture_name
         self.fixture = {}
         self.fixture_is_correct = is_correct
         if is_correct:
@@ -73,7 +74,7 @@ class FixtureExporter(object):
         pass
 
     def export_yml_fixture(self):
-        with open(os.path.join(self.fixture_home, 'exported_challenge.yml'), 'w') as fixture_file:
+        with open(os.path.join(self.fixture_home, self.fixture_name), 'w') as fixture_file:
             yaml.dump(self.fixture, fixture_file)
         pass
 
