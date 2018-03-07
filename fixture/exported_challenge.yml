@@ -15,54 +15,6 @@ challenge:
         }
       }
       %%END
-    - |-
-      %%CREATE%%src/src/Person.java%%
-      package src;
-
-      public class Person {
-        String name;
-
-        public Person(String personName) {
-                name = personName;
-        }
-
-        public String greet(String yourName) {
-                return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
-        }
-      }
-      %%END
-    - |-
-      %%CREATE%%src/src/src/Person.java%%
-      package src.src;
-
-      public class Person {
-        String name;
-
-        public Person(String personName) {
-                name = personName;
-        }
-
-        public String greet(String yourName) {
-                return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
-        }
-      }
-      %%END
-    - |-
-      %%CREATE%%src/src/src/src/Person.java%%
-      package src.src.src;
-
-      public class Person {
-        String name;
-
-        public Person(String personName) {
-                name = personName;
-        }
-
-        public String greet(String yourName) {
-                return String.format("Konbanwa!  My name is %s.  It is nice to meet you, %s!", this.name, yourName);
-        }
-      }
-      %%END
     is_correct: false
   valid_assertion:
     files:

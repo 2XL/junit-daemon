@@ -2,10 +2,7 @@
   "challenge": {
     "answer": {
       "files": [
-        "%%CREATE%%src/Person.java%%\npublic class Person {\n  String name;\n\n  public Person(String personName) {\n          name = personName;\n  }\n\n  public String greet(String yourName) {\n          return String.format(\"Konbanwa!  My name is %s.  It is nice to meet you, %s!\", this.name, yourName);\n  }\n}\n%%END", 
-        "%%CREATE%%src/src/Person.java%%\npackage src;\n\npublic class Person {\n  String name;\n\n  public Person(String personName) {\n          name = personName;\n  }\n\n  public String greet(String yourName) {\n          return String.format(\"Konbanwa!  My name is %s.  It is nice to meet you, %s!\", this.name, yourName);\n  }\n}\n%%END", 
-        "%%CREATE%%src/src/src/Person.java%%\npackage src.src;\n\npublic class Person {\n  String name;\n\n  public Person(String personName) {\n          name = personName;\n  }\n\n  public String greet(String yourName) {\n          return String.format(\"Konbanwa!  My name is %s.  It is nice to meet you, %s!\", this.name, yourName);\n  }\n}\n%%END", 
-        "%%CREATE%%src/src/src/src/Person.java%%\npackage src.src.src;\n\npublic class Person {\n  String name;\n\n  public Person(String personName) {\n          name = personName;\n  }\n\n  public String greet(String yourName) {\n          return String.format(\"Konbanwa!  My name is %s.  It is nice to meet you, %s!\", this.name, yourName);\n  }\n}\n%%END"
+        "%%CREATE%%src/Person.java%%\npublic class Person {\n  String name;\n\n  public Person(String personName) {\n          name = personName;\n  }\n\n  public String greet(String yourName) {\n          return String.format(\"Konbanwa!  My name is %s.  It is nice to meet you, %s!\", this.name, yourName);\n  }\n}\n%%END"
       ], 
       "is_correct": false
     }, 

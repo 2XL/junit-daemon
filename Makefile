@@ -64,6 +64,8 @@ fixture-2-json:
 project-2-fixture:
 	@invoke export
 
+## project into fixture then fixture into json
+project-2-fixture-json: project-2-fixture fixture-2-json
 
 # ----------------------------------------------------------------------------------------
 ## build project tree from data/exported_challenge.json
