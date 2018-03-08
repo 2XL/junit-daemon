@@ -4,6 +4,39 @@ import base64, json, os, sys, yaml
 
 from invoke import task
 from pipeline import executor, reporter, exporter
+import socket, time
+
+
+@task
+def wait(ctx, host='localhost', port=80, retry_itv=1, max_retry=10):
+    """ Command to wait for it
+    example:
+
+    invoke wait -h='mq' -p=5673
+
+    :param ctx:
+    :param host:
+    :param port:
+    :param retry_itv:
+    :param max_retry:
+    :return:
+    """
+
+    if host is None or port is None:
+        return
+
+    available = False
+    socket_connector = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    while not available and max_retry > 0:
+        available = socket_connector.connect_ex((host, port)) == 0
+        if available:
+            continue
+        else:
+            time.sleep(retry_itv)
+            max_retry = max_retry - 1
+            print "timeout in: {}s".format(max_retry*retry_itv)
+
+    pass
 
 
 @task
@@ -31,7 +64,8 @@ def report(ctx):
 
 
 @task
-def export(ctx, source_home='src', test_home='tests', fixture_home='fixture', fixture_name='exported_challenge.yml', is_correct=False):
+def export(ctx, source_home='src', test_home='tests', fixture_home='fixture', fixture_name='exported_challenge.yml',
+           is_correct=False):
     """Generate fixture yml from src and tests
 
     :param ctx:

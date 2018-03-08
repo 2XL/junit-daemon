@@ -4,10 +4,8 @@ services:
     build:
       context: .
       dockerfile: docker/java.docker
-    image: ${DOCKER_IMAGE_NAME}
+#    image: ${DOCKER_IMAGE_NAME}
     container_name: junit_daemon
-    entrypoint:
-      - 'java'
     depends_on:
       - mq
     env_file:
@@ -18,3 +16,15 @@ services:
     build:
       context: .
       dockerfile: docker/rabbitmq.docker
+
+
+  junit-workload-generator:
+    build:
+      context: .
+      dockerfile: docker/python.docker
+    container_name: junit_workload_generator
+    depends_on:
+      - mq
+      - junit-daemon
+    env_file:
+      - docker-compose.env

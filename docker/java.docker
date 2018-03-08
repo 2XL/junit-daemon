@@ -51,6 +51,7 @@ RUN apk add --update \
     py-pip \
     build-base \
     bash \
+    py-psutil \
   && pip install virtualenv \
   && rm -rf /var/cache/apk/*
 
@@ -63,10 +64,12 @@ RUN pip install -r requirements.sh
 COPY docker/java.entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # copy nameko source
-COPY nameko nameko
+COPY namekos namekos
 COPY nameko.yml nameko.yml
 
-
+# copy extra source
+COPY pipeline pipeline
+COPY tasks.py tasks.py
 
 
 ENTRYPOINT ["entrypoint.sh"]

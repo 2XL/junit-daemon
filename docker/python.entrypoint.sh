@@ -1,12 +1,9 @@
 #!/bin/bash
 set -eu
 
-
-
 function nameko {
     echo "Start nameko service"
     invoke wait -h='mq' -p=5673
-
 
     # wait until broker url is available
     echo $BROKER_URL
@@ -26,6 +23,7 @@ nameko) shift
 	;;
 esac
 done
+
 
 
 exec "$@"
