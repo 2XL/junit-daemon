@@ -1,4 +1,8 @@
 nameko==2.5.3
+eventlet==0.20.1
+
 PyYAML==3.12
 invoke==0.22.1
-psutil==5.4.3
+psutil==5.4.2
+pytest==3.0.3
+pytest-sugar==0.9.1

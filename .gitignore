@@ -5,6 +5,7 @@
 *.jar
 reports/*.txt
 reports/*
+.cache
 *.java
 *.pyc
 .gradle
