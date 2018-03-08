@@ -1,0 +1,12 @@
+AMQP_URI: ${BROKER_URL}
+max_workers: 100
+parent_calls_tracked: 200
+
+LOGGING:
+    version: 1
+    handlers:
+        console:
+            class: logging.StreamHandler
+    root:
+        level: ${NAMEKO_DEBUG_LEVEL}
+        handlers: [console]

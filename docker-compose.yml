@@ -10,6 +10,9 @@ services:
       - 'java'
     depends_on:
       - mq
+    env_file:
+      - docker-compose.env
+
 
   mq:
     build:

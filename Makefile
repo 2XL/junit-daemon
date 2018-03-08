@@ -64,7 +64,6 @@ dc-up:
 dc-bash: dc-build dc-size
 	@docker run -it --rm "${DOCKER_IMAGE_NAME}" bash
 
-
 # ----------------------------------------------------------------------------------------
 ## setup, download jars, install dependencies, validate requirements
 setup:

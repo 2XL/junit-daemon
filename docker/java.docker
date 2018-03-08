@@ -57,9 +57,19 @@ RUN apk add --update \
 
 WORKDIR home
 
+COPY requirements.txt requirements.sh
+RUN pip install -r requirements.sh
+
 COPY docker/java.entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# copy nameko source
+COPY nameko nameko
+COPY nameko.yml nameko.yml
+
+
+
 
 ENTRYPOINT ["entrypoint.sh"]
 
 EXPOSE 8000 80
-CMD ["bash"]
+CMD ["nameko"]
