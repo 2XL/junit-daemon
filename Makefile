@@ -136,6 +136,9 @@ logs:
 
 ## all
 all: build setup compile-source compile-test run-test logs
+	@inv report
+	@cat ${REPORT_PATH}/*.json
+	@echo .
 
 
 ## all-gradle
