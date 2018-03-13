@@ -11,7 +11,7 @@ function nameko {
     # wait until broker url is available
     echo $BROKER_URL
 
-    # exec nameko run --config ./nameko.yml nameko
+    exec nameko run --config ./nameko.yml namekos
 }
 
 

@@ -71,6 +71,9 @@ COPY nameko.yml nameko.yml
 COPY pipeline pipeline
 COPY tasks.py tasks.py
 
+# copy testing dependencies
+COPY setup.cfg setup.cfg
+
 
 ENTRYPOINT ["entrypoint.sh"]
 

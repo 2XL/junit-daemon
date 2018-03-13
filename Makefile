@@ -17,7 +17,8 @@ export WORKSPACE_MAVEN := ./workspace/maven
 export WORKSPACE_ANT := ./workspace/ant
 
 export DOCKER_IMAGE_NAME := chenglongzq/junit-daemon
-
+export DOCKER_COMPOSE_TESTER := tester
+export DOCKER_COMPOSE_DAEMON := service
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
@@ -49,7 +50,7 @@ help:
 
 #
 ## DockerCompose && Docker tasks
-dc-build:
+dc-build: clean-cache
 	@docker-compose build
 
 
@@ -60,9 +61,17 @@ dc-size:
 dc-up:
 	@docker-compose up
 
-## get docker runner tty terminal
+## get docker tty terminal from image
 dc-bash: dc-build dc-size
 	@docker run -it --rm "${DOCKER_IMAGE_NAME}" bash
+
+## get daemon tty
+dc-daemon:
+	@docker-compose exec "${DOCKER_COMPOSE_DAEMON}" bash
+
+## get tester tty
+dc-tester:
+	@docker-compose exec "${DOCKER_COMPOSE_TESTER}" bash
 
 # ----------------------------------------------------------------------------------------
 ## setup, download jars, install dependencies, validate requirements
@@ -123,6 +132,10 @@ run-gradle:
 clean:
 	@clean.sh
 	@invoke clean
+
+## clean cache
+clean-cache:
+	@clean_cache.sh
 
 ## stream logs
 logs-stream:

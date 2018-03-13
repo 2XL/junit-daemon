@@ -1,4 +1,5 @@
 AMQP_URI: ${BROKER_URL}
+
 max_workers: 100
 parent_calls_tracked: 200
 

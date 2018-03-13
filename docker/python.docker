@@ -123,6 +123,7 @@ RUN apk add --update python python-dev \
     && wget https://bootstrap.pypa.io/ez_setup.py -O - | python \
     && rm -rf /var/cache/apk/*
 
+WORKDIR home
 
 COPY requirements.txt requirements.sh
 RUN pip install -r requirements.sh
@@ -140,4 +141,4 @@ COPY docker/python.entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 
-CMD ["python2"]
+CMD ["bash"]
