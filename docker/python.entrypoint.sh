@@ -3,12 +3,12 @@ set -eu
 
 function nameko {
     echo "Start nameko service"
-    invoke wait -h='mq' -p=5673
+    invoke wait-amqp -h='mq' -p=5673 -m ${BROKER_URL}
 
     # wait until broker url is available
     echo $BROKER_URL
 
-    # exec nameko run --config ./nameko.yml nameko
+    exec nameko run --config ./nameko.yml workload_generator
 }
 
 

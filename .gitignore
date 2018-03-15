@@ -10,3 +10,4 @@ reports/*
 *.pyc
 .gradle
 workspace/*
+.scripts/_bash_completion

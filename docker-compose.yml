@@ -5,7 +5,6 @@ services:
       context: .
       dockerfile: docker/java.docker
 #    image: ${DOCKER_IMAGE_NAME}
-    container_name: junit_daemon
     depends_on:
       - mq
     env_file:
@@ -18,17 +17,17 @@ services:
       dockerfile: docker/rabbitmq.docker
     ports:
       - 15672:15672
+      - 5672:5672
 
   tester:
     build:
       context: .
       dockerfile: docker/python.docker
-    container_name: junit_workload_generator
     depends_on:
       - mq
       - service
     env_file:
       - docker-compose.env
-    stdin_open: true
-    tty: true
+#    stdin_open: true
+#    tty: true
     # no logs no ops it opens perma tty to allow connect and interact

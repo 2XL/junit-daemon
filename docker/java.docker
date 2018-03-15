@@ -69,6 +69,9 @@ COPY nameko.yml nameko.yml
 
 # copy extra source
 COPY pipeline pipeline
+
+RUN echo "ASDF"
+
 COPY tasks.py tasks.py
 
 # copy testing dependencies

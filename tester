@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+
+# TODO: tester script with autocomplete /etc/bash_completion
+# https://debian-administration.org/article/317/An_introduction_to_bash_completion_part_2
+
+
+function help {
+
+echo """
+options:
+    list                        list fixtures available
+    run                         run fixture test
+    --
+
+    autocomplete
+"""
+
+}
+
+function run {
+    # todo: invoke test requirements
+    invoke test -f $1
+}
+
+function list {
+    find ./fixture -name '*.yml' -printf "%f\n"
+}
+
+
+function setup {
+
+
+FILENAME=`basename ${0}`
+AUTOCOMPLETE_MANIFEST=/etc/bash_completion.d/${FILENAME}
+rm -f $AUTOCOMPLETE_MANIFEST # clean for override
+
+
+if [ ! -f $AUTOCOMPLETE_MANIFEST ] && [ "$EUID" -eq 0 ]; then
+
+SBIN_PATH="/usr/local/bin/${FILENAME}"
+SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )/${FILENAME}"
+rm ${SBIN_PATH} -f
+ln -s ${SCRIPT_PATH} ${SBIN_PATH}
+
+echo "bash_script_where: [${SCRIPT_PATH}]"
+echo "bash_autocomplete: [${AUTOCOMPLETE_MANIFEST}]"
+
+cat > $AUTOCOMPLETE_MANIFEST <<- EOM
+#export fixture_files=\`find \$PWD/fixture -name '*.yml' -printf "%f\n"\`
+#echo \$fixture_files # debug
+
+_${FILENAME}()
+{
+        local cur prev opts base
+    COMPREPLY=()
+    cur="\${COMP_WORDS[COMP_CWORD]}"
+    prev="\${COMP_WORDS[COMP_CWORD-1]}"
+    #
+    #  The basic options we'll complete.
+    #
+    opts="run list"
+
+
+    #
+    #  Complete the arguments to some of the basic commands.
+    #
+    case "\${prev}" in
+        run)
+
+
+            local fixtures=\$(for x in \`find \$PWD/fixture -name '*.yml' -printf "%f\n"\`; do echo \${x} ; done ) # bug prone due to usage of relative path
+            COMPREPLY=( \$(compgen -W "\${fixtures}" -- \${cur}) )
+            return 0
+            ;;
+        *)
+        ;;
+    esac
+
+   COMPREPLY=(\$(compgen -W "\${opts}" -- \${cur}))
+   return 0
+}
+complete -F _${FILENAME} ${FILENAME}
+
+EOM
+
+
+cat ${AUTOCOMPLETE_MANIFEST}
+
+
+#cat <<- INFO
+## to try this out:
+#
+#. /etc/bash_completion.d/${FILENAME}
+#${FILENAME} --[TAB]
+#
+## for more advanced features, visit: https://debian-administration.org/article/317/An_introduction_to_bash_completion_part_2
+#INFO
+
+else
+        echo "__noop__"
+fi
+}
+
+"$@"

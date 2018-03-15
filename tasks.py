@@ -4,7 +4,16 @@ import base64, json, os, sys, yaml
 
 from invoke import task
 from pipeline import executor, reporter, exporter
+import kombu  # dependency of wait for it
 import socket, time
+
+
+@task
+def test(ctx, fixture=None, code=None, assertion=None, lenguage='java', framework='junit'):
+    from workload_generator.workload_generator import WorkloadGenerator
+    executor = WorkloadGenerator()
+    executor.submit(fixture=fixture)
+    pass
 
 
 @task
@@ -22,21 +31,64 @@ def wait(ctx, host='localhost', port=80, retry_itv=1, max_retry=10):
     :return:
     """
 
-    if host is None or port is None:
-        return
-
     available = False
     socket_connector = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     while not available and max_retry > 0:
         available = socket_connector.connect_ex((host, port)) == 0
-        if available:
+        if available == 0:
             continue
         else:
             time.sleep(retry_itv)
             max_retry = max_retry - 1
-            print "timeout in: {}s".format(max_retry*retry_itv)
+            print "timeout in: {} {}s".format(available, max_retry * retry_itv)
 
     pass
+
+
+@task
+def wait_amqp(ctx, host='localhost', port=5672, user='guest', password='guest', vhost='/', amqp_url=None,
+              retry_itv=1, max_retry=10):
+    """
+
+    Options:
+      -a STRING, --password=STRING
+      -h STRING, --host=STRING
+      -m STRING, --amqp-url=STRING
+      -p, --port
+      -r, --retry-itv
+      -u STRING, --user=STRING
+      -v STRING, --vhost=STRING
+      -x, --max-retry
+
+    :param ctx:
+    :param host:
+    :param port:
+    :param user:
+    :param password:
+    :param vhost:
+    :param amqp_url:
+    :param retry_itv:
+    :param max_retry:
+    :return:
+    """
+    if amqp_url is not "" and amqp_url is None:
+        amqp_url = 'amqp://{0}:{1}@{2}:{3}/{4}'.format(user, password, host, port, vhost)
+
+    with kombu.Connection(amqp_url) as conn:
+        while max_retry > 0:
+            try:
+                conn.connect()
+            except socket.error:
+                print "amqp not running, timeout in: {}s".format(max_retry * retry_itv)
+                max_retry = max_retry - 1
+                time.sleep(retry_itv)
+
+            except Exception as ex:
+                print "its running! ", ex.message
+                break
+            else:
+                print "its running && valid credentials!"
+                break
 
 
 @task

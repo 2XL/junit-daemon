@@ -49,6 +49,73 @@ OK (1 test)
   }
 ]
 ```
+
+
+# workflow
+
+
+<PRE>
+
+[service]                         [tester]                                     [mq]
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>                   nameko register subscriber (worker to validate test)
+    
+                                    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>                   nameko register publisher (worker to submit test && listen callback)
+                                    
+ 
+</PRE>
+
+
+## creating fixtures
+
+
  - [HOW_TO_CREATE_FIXTURE.md](https://github.com/2XL/junit-daemon/blob/master/fixture/README.md)
+
+
+
+
+## setup autocomplete[optional]
+
+install autocomplete to enhance tester script autocomplete
+```bash
+# need root to create: [/etc/bash_completion.d/tester]
+└─ $ ▶ sudo ./tester setup
+
+bash_script_where: [/path-to-project/junit-daemon/tester]
+bash_autocomplete: [/etc/bash_completion.d/tester]
+
+
+└─ $ ▶ tester list
+demo.yml
+request.yml
+template.yml
+request-junit-5.0.1.yml
+exported_challenge.yml
+
+
+└─ $ ▶ tester run [TAB-KEY] # it will list *.yml files from fixture directory                
+demo.yml                 exported_challenge.yml   request-junit-5.0.1.yml  request.yml              template.yml  
+```
+
+
+
+## test fixtures as submissions
+
+```bash 
+tester run demo.yml  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## TODO
 
  - [TODO.md](https://github.com/2XL/junit-daemon/blob/master/TODO.md)

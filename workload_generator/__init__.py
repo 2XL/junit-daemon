@@ -15,5 +15,4 @@ class WorkloadGeneratorService(object):
         result = payload.get('result')
         status = result.get('status')
         logger.info('nameko | challenge_checked.status | {status} '.format(status=status))
-        result_str = json.dumps(result)
         logger.info('nameko | challenge_checked.result | {result} '.format(result=result))

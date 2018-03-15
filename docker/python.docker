@@ -129,16 +129,19 @@ COPY requirements.txt requirements.sh
 RUN pip install -r requirements.sh
 
 # copy nameko source
-COPY workload_generator namekos
+COPY workload_generator workload_generator
 COPY nameko.yml nameko.yml
 
 # copy extra source
 COPY pipeline pipeline
+
+RUN echo "ASDF"
 COPY tasks.py tasks.py
 
 
 COPY docker/python.entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY tester /usr/local/bin/tester
 ENTRYPOINT ["entrypoint.sh"]
 
 
-CMD ["bash"]
+CMD ["nameko"]

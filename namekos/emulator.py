@@ -34,6 +34,8 @@ class EmulatorService(object):
         token = payload.get('token')
         runner_framework = payload.get('runner_framework', None)
 
+
+        # TODO: make all :|
         logger.info(
             'nameko request {token} snippet {snippet} assertion {assertion}'.format(token=token, snippet=snippet,
                                                                                     assertion=assertion_snippet))
