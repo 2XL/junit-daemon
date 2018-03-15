@@ -13,6 +13,7 @@ def test(ctx, fixture=None, code=None, assertion=None, lenguage='java', framewor
     from workload_generator.workload_generator import WorkloadGenerator
     executor = WorkloadGenerator()
     executor.submit(fixture=fixture)
+
     pass
 
 

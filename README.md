@@ -1,28 +1,40 @@
 - run:
 ```bash
-git clone https://github.com/2XL/junit-daemon && cd junit-daemon
-make all
+# pull repo
+└─ $ ▶ git clone https://github.com/2XL/junit-daemon && cd junit-daemon
+
+# demo local
+└─ $ ▶ make all
+# demo in docker service  
+└─ $ ▶ docker-compose up
+└─ $ ▶ docker-compose exec service bash
 ```
 
 - output:
 ```bash
-
-└─ $ ▶ make all
+bash-4.4# make all
 Available tasks:
 
-  build    Provision the project with the provided payload
-  clean    Cleans up generated files, clean all files in source
-  export   Generate fixture yml from src and tests
-  report   Generate json reports from execution stdout
+  build       Provision the project with the provided payload
+  clean       Cleans up generated files, clean all files in source
+  export      Generate fixture yml from src and tests
+  report      Generate json reports from execution stdout
+  test
+  wait        Command to wait for it
+  wait-amqp   Options:
 
+Connecting to search.maven.org (54.165.174.99:80)
+hamcrest-core-1.3.ja 100% |**********************************************************************************************************************************************| 45024   0:00:00 ETA
+Connecting to github.com (192.30.253.113:443)
+Connecting to github-production-release-asset-2e65be.s3.amazonaws.com (52.216.165.171:443)
+junit-4.12.jar       100% |**********************************************************************************************************************************************|   307k  0:00:00 ETA
 java -cp out:tests:libs/junit-4.12.jar:libs/hamcrest-core-1.3.jar org.junit.runner.JUnitCore PersonTest
 JUnit version 4.12
 .
-Time: 0.003
+Time: 0.008
 
 OK (1 test)
-```
-```json
+
 [
   {
     "err_run_test": []
@@ -41,13 +53,15 @@ OK (1 test)
       "test_framework": "JUnit version 4.12", 
       "test_status": "OK", 
       "test_summary": "1 test", 
-      "test_time": "0.003"
+      "test_time": "0.008"
     }
   }, 
   {
     "err_compile_test": []
   }
-]
+].
+bash-4.4# 
+
 ```
 
 

@@ -3,7 +3,7 @@
 # download required jars
 [ -z "${SOURCE_PATH}" ] && echo "Env var 'SOURCE_PATH' required"  && exit 1;
 [ -z "${BUILD_PATH}" ] && echo "Env var 'BUILD_PATH' required"  && exit 1;
-[ -z "${REPORT_PATH}" ] && echo "Env var 'REPORTS_PATH' required"  && exit 1;
+[ -z "${REPORT_PATH}" ] && echo "Env var 'REPORT_PATH' required"  && exit 1;
 
 [ ! -d "${REPORT_PATH}" ] && mkdir ${REPORT_PATH}
 [ ! -d "${BUILD_PATH}" ] && mkdir ${BUILD_PATH}

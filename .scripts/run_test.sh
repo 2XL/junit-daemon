@@ -18,7 +18,7 @@ EXTERNAL_LIBS=$(echo $EXTERNAL_LIBS | sed 's/ /:/g')
 
 #echo ${BUILD_CLASSES}:${TEST_CLASSES}:${EXTERNAL_LIBS}
 
-COLLECT_TESTS=$(command ls tests --hide='*.java' | sed -e 's/\..*$//' | awk '{print $NS}')
+COLLECT_TESTS=$(command find tests -name *.class -type f -exec basename {} + | sed -e 's/\.[a-zA-Z]*$//')
 
 echo "java -cp ${BUILD_PATH}:${TEST_PATH}:${EXTERNAL_LIBS} org.junit.runner.JUnitCore $COLLECT_TESTS"
 java -cp ${BUILD_PATH}:${TEST_PATH}:${EXTERNAL_LIBS} org.junit.runner.JUnitCore $COLLECT_TESTS \

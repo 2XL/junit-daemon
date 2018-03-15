@@ -31,8 +31,12 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk/jre
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
+ENV JAVAC_DISTRIBUTION openjdk8
 ENV JAVA_VERSION 8u151
 ENV JAVA_ALPINE_VERSION 8.151.12-r0
+
+#RUN apk add "$JAVA_DISTRIBUTION$JAVA_VERSION" --update && rm -rf /var/cache/apk/* && ln -s "/usr/lib/jvm/java-1.$JAVA_VERSION-openjdk/bin/javac" /usr/bin/javac
+
 
 RUN set -x \
 	&& apk add --no-cache \
@@ -52,6 +56,8 @@ RUN apk add --update \
     build-base \
     bash \
     py-psutil \
+    ncurses \
+    "$JAVAC_DISTRIBUTION" \
   && pip install virtualenv \
   && rm -rf /var/cache/apk/*
 
@@ -67,6 +73,10 @@ COPY docker/java.entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY namekos namekos
 COPY nameko.yml nameko.yml
 
+COPY Makefile Makefile
+COPY .scripts .scripts
+COPY data data
+COPY libs/jar.repo.list libs/jar.repo.list
 # copy extra source
 COPY pipeline pipeline
 
