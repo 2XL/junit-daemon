@@ -56,13 +56,37 @@ OK (1 test)
 
 <PRE>
 
-[service]                         [tester]                                     [mq]
+[service/emulator] [tester/school] [mq]    
+
+                                        state: after starting the dev env `docker-compose up`    
     
-    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>                   nameko register subscriber (worker to validate test)
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   nameko register subscriber (worker to validate test)
     
-                                    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>                   nameko register publisher (worker to submit test && listen callback)
+                    >>>>>>>>>>>>>>>>>   nameko register publisher (worker to submit test && listen callback)
                                     
- 
+                                        event: localmachine run `tester run demo.yml`
+                                        
+                    <<<<<<<<<<<<<<<<<   codechallenge-submission is dispatch
+                    
+                                        event: school generate submission token and wait for callback
+                
+                    >>>>>>>>>>>>>>>>>   codechallenge-validation request to emulator
+                    
+    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   emulator receive code submission from school
+    
+                                        event: emulator generates the source tree
+                                        
+                                        event: emulator runs the testsuite
+                                        
+                                        event: emulator generate reports in json format
+                                        
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   emulator response with reports to school
+                                        
+                                        event: school update the submission token status with the report
+                                        
+                                        event: school response the ui                                                                                                                                                                                                                                                                  
+                                        
+                                         
 </PRE>
 
 
@@ -102,7 +126,14 @@ demo.yml                 exported_challenge.yml   request-junit-5.0.1.yml  reque
 ## test fixtures as submissions
 
 ```bash 
-tester run demo.yml  
+
+
+└─ $ ▶ docker-compose up 
+
+└─ $ ▶ tester run demo.yml
+
+
+  
 ```
 
 
